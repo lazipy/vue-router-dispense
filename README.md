@@ -1,5 +1,11 @@
 # vue-router-dispense
 
+#### 安装
+
+```
+npm install vue-router-dispense -S
+```
+
 一个基于 vue-router 的扩展， vue-router 原有功能及配置完全保留，主要功能有以下几点：
 
 1. 指定路由配置模块，统一加载，无需单个 import 进来
