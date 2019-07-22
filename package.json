@@ -1,10 +1,10 @@
 {
   "name": "vue-router-dispense",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A dispense routing plugin based on vue-router",
-  "main": "index.js",
+  "main": "dist/index.cjs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,18 @@
   "bugs": {
     "url": "https://github.com/lazipy/vue-router-dispense/issues"
   },
-  "homepage": "https://github.com/lazipy/vue-router-dispense#readme"
+  "homepage": "https://github.com/lazipy/vue-router-dispense#readme",
+  "dependencies": {
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.7"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
+    "rollup": "^1.17.0",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-uglify-es": "^0.0.1"
+  }
 }

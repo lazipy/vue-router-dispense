@@ -1,13 +1,13 @@
-import Router from 'vue-router'
+import Router from 'vue-router';
 
-let routes = []
+let routes = [];
 // 获取所有模块的router.js
 function getRoutes(modules) {
   if (modules) {
     modules.keys().forEach(route => {
-      const routerModule = modules(route)
-      routes.push(routerModule.default || routerModule)
-    })
+      const routerModule = modules(route);
+      routes.push(routerModule.default || routerModule);
+    });
   }
 }
 
@@ -18,38 +18,38 @@ function instantiation(options) {
     base: options.base,
     scrollBehavior: options.scrollBehavior,
     routes: options.routes
-  })
+  });
 }
 
 // 添加访问历史记录
 function addVisiteRecord(router, to) {
   if (router.records) {
     if (!router.records.map(v => v.path).includes(to.path)) {
-      router.records = [...router.records, to]
+      router.records = [...router.records, to];
     }
   } else {
-    router.records = [to]
+    router.records = [to];
   }
 }
 
 // 添加面包屑信息
 function addBreadcrumb(routes, router) {
-  routes = [...routes, router.options.routes]
-  const indexRoute = getIndexRoute(routes)
-  let matched = router.currentRoute.matched.filter(item => item.name)
-  const first = matched[0]
+  routes = [...routes, router.options.routes];
+  const indexRoute = getIndexRoute(routes);
+  let matched = router.currentRoute.matched.filter(item => item.name);
+  const first = matched[0];
   if (first && first.path !== '') {
-    router.breadcrumbs = [indexRoute, ...matched]
+    router.breadcrumbs = [indexRoute, ...matched];
   } else {
-    router.breadcrumbs = [...matched]
+    router.breadcrumbs = [...matched];
   }
 }
 
 // 获取首页路由
 function getIndexRoute(routes) {
-  let indexRoute = routes.find(route => route.path === '')
-  delete indexRoute.children
-  return indexRoute
+  let indexRoute = routes.find(route => route.path === '');
+  delete indexRoute.children;
+  return indexRoute;
 }
 
 /**
@@ -57,30 +57,30 @@ function getIndexRoute(routes) {
  * @param {*} options
  */
 function VueRouterDespense(options) {
-  let router = instantiation(options) // 实例化vue-router
+  let router = instantiation(options); // 实例化vue-router
 
   /**
    * 路由前置钩子
    */
   router.beforeEach((to, from, next) => {
     if (routes.length === 0) {
-      getRoutes(options.modules) // 获取模块的router.js
+      getRoutes(options.modules); // 获取模块的router.js
       /**
        * 过滤模块的路由配置，通常用于权限控制
        */
       if (options.filter) {
-        routes = options.filter(routes)
+        routes = options.filter(routes);
       }
-      router.addRoutes(routes)
-      next({ path: to.path, replace: true })
+      router.addRoutes(routes);
+      next({ path: to.path, replace: true });
     }
 
     if (options.beforeEach) {
-      options.beforeEach(to, from, next)
+      options.beforeEach(to, from, next);
     } else {
-      next()
+      next();
     }
-  })
+  });
 
   /**
    *路由后置钩子
@@ -90,25 +90,25 @@ function VueRouterDespense(options) {
      * 如果 record 为 true ,则记录访问历史记录
      */
     if (options.record) {
-      addVisiteRecord(router, to)
+      addVisiteRecord(router, to);
     }
 
     /**
      * 如果 breadcrumb 为 true ,则添加面包屑
      */
     if (options.breadcrumb) {
-      addBreadcrumb(routes, router)
+      addBreadcrumb(routes, router);
     }
 
     // 执行钩子
     if (options.afterEach) {
-      options.afterEach(to, from)
+      options.afterEach(to, from);
     }
-  })
+  });
 
-  return router
+  return router;
 }
 
-VueRouterDespense.install = Router.install
+VueRouterDespense.install = Router.install;
 
-export default VueRouterDespense
+export default VueRouterDespense;
