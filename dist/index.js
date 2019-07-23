@@ -8,7 +8,7 @@
 
   let routes = [];
   // 获取所有模块的router.js
-  function getRoutes(modules) {
+  function getRoutes(modules = require.context('../views', true, /router.js/)) {
     if (modules) {
       modules.keys().forEach(route => {
         const routerModule = modules(route);
