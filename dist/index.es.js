@@ -2,7 +2,7 @@ import Router from 'vue-router';
 
 let routes = [];
 // 获取所有模块的router.js
-function getRoutes(modules = require.context('../views', true, /router.js/)) {
+function getRoutes(modules) {
   if (modules) {
     modules.keys().forEach(route => {
       const routerModule = modules(route);

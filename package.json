@@ -1,6 +1,6 @@
 {
   "name": "vue-router-dispense",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A dispense routing plugin based on vue-router",
   "main": "dist/index.cjs.js",
   "scripts": {
